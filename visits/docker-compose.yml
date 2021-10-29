@@ -1,0 +1,9 @@
+version: "3" # version of docker-compose
+services: # declare containers
+  redis-server: # name of container
+    image: "redis" # base image of container
+  node-app: # name of container
+    restart: on-failure # "on", "always", "on-failure", "unless-stopped"
+    build: . # docker build .
+    ports:
+      - "3000:3000" # port mapping 3000 from local to container
