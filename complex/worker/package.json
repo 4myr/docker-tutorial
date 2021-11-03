@@ -1,5 +1,8 @@
 {
-    "dependencies": {"nodemon": "*", "redis": "*"},
+    "dependencies": {
+        "nodemon": "*",
+        "redis": "*"
+    },
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon"

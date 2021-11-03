@@ -2,8 +2,19 @@ version: "3"
 services:
   postgres:
     image: "postgres:latest"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
   redis:
     image: "redis:latest"
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3050:80" # port mapping 3050 from local to 80 nginx
   api:
     build:
       context: ./server
@@ -11,7 +22,7 @@ services:
     volumes:
       - /app/node_modules
       - ./server:/app
-    envoirement:
+    environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - PGUSER=postgres

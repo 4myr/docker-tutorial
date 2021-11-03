@@ -1,13 +1,13 @@
 const express = require("express");
 const cors = require("cors");
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const redis = require("redis");
 const { Pool } = require("pg");
 const keys = require("./keys");
 const app = express();
 
 app.use(cors());
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 // Postgresql Setup
 
@@ -24,6 +24,10 @@ pgClient
   .catch((err) => console.log("Cannot create values Table", err.message));
 
 // Redis setup
+console.log("redis configs:", {
+  host: keys.redisHost,
+  port: keys.redisPort,
+});
 const redisClient = redis.createClient({
   host: keys.redisHost,
   port: keys.redisPort,
@@ -48,7 +52,8 @@ app.get("/values/current", async (req, res) => {
 });
 
 app.post("/values", (req, res) => {
-  const index = req.body.value;
+  const index = req.body.index;
+  console.log(index);
   if (parseInt(index) > 40) {
     return res.status(422).send("Index too high");
   }
