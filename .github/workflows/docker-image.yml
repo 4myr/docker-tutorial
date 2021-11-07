@@ -14,8 +14,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Change directory to complex project
-      run: cd complex
     
     - name: Build the Docker image for client app
-      run: docker build -f Dockerfile -t amyr/complex-client .
+      working-directory: ./complex
+      run: docker build -f Dockerfile -t amyr/complex-client ./client
+    
+    - name: Build the Docker image for server app
+      working-directory: ./complex
+      run: docker build -f Dockerfile -t amyr/complex-server ./server
+
+    - name: Build the Docker image for worker app
+      working-directory: ./complex
+      run: docker build -f Dockerfile -t amyr/complex-worker ./worker
+
+    - name: Build the Docker image for nginx
+      working-directory: ./complex
+      run: docker build -f Dockerfile -t amyr/complex-nginx ./nginx
