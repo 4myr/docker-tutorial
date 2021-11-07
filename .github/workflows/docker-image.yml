@@ -15,17 +15,33 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Build the Docker image for client app
+    - name: Build the Docker image for client app (development)
+      working-directory: ./complex
+      run: docker build -f ./client/Dockerfile.dev -t amyr/complex-client-test ./client
+      
+    - name: Test the Client app
+      working-directory: ./complex
+      run: docker run amyr/complex-client-test -e CI=true npm run test
+      
+    - name: Build the Docker image for client app (production)
       working-directory: ./complex
       run: docker build -f ./client/Dockerfile -t amyr/complex-client ./client
     
     - name: Build the Docker image for server app
       working-directory: ./complex
       run: docker build -f ./server/Dockerfile -t amyr/complex-server ./server
+      
+    - name: Test the Server app
+      working-directory: ./complex
+      run: docker run amyr/complex-server -e CI=true npm run test
 
     - name: Build the Docker image for worker app
       working-directory: ./complex
       run: docker build -f ./worker/Dockerfile -t amyr/complex-worker ./worker
+      
+    - name: Test the Worker app
+      working-directory: ./complex
+      run: docker run amyr/complex-worker -e CI=true npm run test
 
     - name: Build the Docker image for nginx
       working-directory: ./complex
