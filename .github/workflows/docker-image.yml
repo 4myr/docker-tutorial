@@ -5,7 +5,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+env:
+    DOCKER_ID: ${{secrets.DOCKER_ID}}
+    DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+                  
 jobs:
 
   complex-build:
@@ -46,3 +49,18 @@ jobs:
     - name: Build the Docker image for nginx
       working-directory: ./complex
       run: docker build -f ./nginx/Dockerfile -t amyr/complex-nginx ./nginx
+      
+    - name: Setup docker hub
+      run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+      
+    - name: Push the Client app
+      run: docker push amyr/complex-client
+      
+    - name: Push the Server app
+      run: docker push amyr/complex-server    
+      
+    - name: Push the Worker app
+      run: docker push amyr/complex-worker
+      
+    - name: Push the Nginx app
+      run: docker push amyr/complex-nginx
