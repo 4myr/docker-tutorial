@@ -51,7 +51,7 @@ jobs:
       run: docker build -f ./nginx/Dockerfile -t amyr/complex-nginx ./nginx
       
     - name: Setup docker hub
-      run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+      run: echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_ID}" --password-stdin
       
     - name: Push the Client app
       run: docker push amyr/complex-client
