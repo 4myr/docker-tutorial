@@ -17,16 +17,16 @@ jobs:
     
     - name: Build the Docker image for client app
       working-directory: ./complex
-      run: docker build -f Dockerfile -t amyr/complex-client ./client
+      run: docker build -f ./client/Dockerfile -t amyr/complex-client ./client
     
     - name: Build the Docker image for server app
       working-directory: ./complex
-      run: docker build -f Dockerfile -t amyr/complex-server ./server
+      run: docker build -f ./server/Dockerfile -t amyr/complex-server ./server
 
     - name: Build the Docker image for worker app
       working-directory: ./complex
-      run: docker build -f Dockerfile -t amyr/complex-worker ./worker
+      run: docker build -f ./worker/Dockerfile -t amyr/complex-worker ./worker
 
     - name: Build the Docker image for nginx
       working-directory: ./complex
-      run: docker build -f Dockerfile -t amyr/complex-nginx ./nginx
+      run: docker build -f ./nginx/Dockerfile -t amyr/complex-nginx ./nginx
