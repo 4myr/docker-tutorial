@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  complex-build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Change directory to complex project
+      run: cd complex
+    
+    - name: Build the Docker image for client app
+      run: docker build -f Dockerfile -t amyr/complex-client .
