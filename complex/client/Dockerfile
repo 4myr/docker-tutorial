@@ -1,4 +1,4 @@
-FROM node:alpine as builder
+FROM node:lts as builder
 WORKDIR /app
 COPY --chown=node:node package.json .
 RUN npm install
