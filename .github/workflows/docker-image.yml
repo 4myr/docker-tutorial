@@ -54,15 +54,11 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-      
     - name: Push the Client app
       run: docker push amyr/complex-client
-      
     - name: Push the Server app
-      run: docker push amyr/complex-server    
-      
+      run: docker push amyr/complex-server
     - name: Push the Worker app
       run: docker push amyr/complex-worker
-      
     - name: Push the Nginx app
       run: docker push amyr/complex-nginx
