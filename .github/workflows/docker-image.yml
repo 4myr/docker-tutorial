@@ -17,44 +17,44 @@ jobs:
     
     - name: Build the Docker image for client app (development)
       working-directory: ./complex
-      run: docker build -f ./client/Dockerfile.dev -t amyr/complex-client-test ./client
+      run: docker build -f ./client/Dockerfile.dev -t amirhwp/complex-client-test ./client
       
     - name: Test the Client app
       working-directory: ./complex
-      run: docker run amyr/complex-client-test -e CI=true npm run test
+      run: docker run amirhwp/complex-client-test -e CI=true npm run test
       
     - name: Build the Docker image for client app (production)
       working-directory: ./complex
-      run: docker build -f ./client/Dockerfile -t amyr/complex-client ./client
+      run: docker build -f ./client/Dockerfile -t amirhwp/complex-client ./client
     
     - name: Build the Docker image for server app
       working-directory: ./complex
-      run: docker build -f ./server/Dockerfile -t amyr/complex-server ./server
+      run: docker build -f ./server/Dockerfile -t amirhwp/complex-server ./server
       
     - name: Test the Server app
       working-directory: ./complex
-      run: docker run amyr/complex-server -e CI=true npm run test
+      run: docker run amirhwp/complex-server -e CI=true npm run test
 
     - name: Build the Docker image for worker app
       working-directory: ./complex
-      run: docker build -f ./worker/Dockerfile -t amyr/complex-worker ./worker
+      run: docker build -f ./worker/Dockerfile -t amirhwp/complex-worker ./worker
       
     - name: Test the Worker app
       working-directory: ./complex
-      run: docker run amyr/complex-worker -e CI=true npm run test
+      run: docker run amirhwp/complex-worker -e CI=true npm run test
 
     - name: Build the Docker image for nginx
       working-directory: ./complex
-      run: docker build -f ./nginx/Dockerfile -t amyr/complex-nginx ./nginx
+      run: docker build -f ./nginx/Dockerfile -t amirhwp/complex-nginx ./nginx
       
       
     - name: Login to Docker Hub
       run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
     - name: Push the Client app
-      run: docker push amyr/complex-client
+      run: docker push amirhwp/complex-client
     - name: Push the Server app
-      run: docker push amyr/complex-server
+      run: docker push amirhwp/complex-server
     - name: Push the Worker app
-      run: docker push amyr/complex-worker
+      run: docker push amirhwp/complex-worker
     - name: Push the Nginx app
-      run: docker push amyr/complex-nginx
+      run: docker push amirhwp/complex-nginx
